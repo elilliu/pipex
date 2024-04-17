@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:59:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/17 16:09:09 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:24:20 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ int	main(int ac, char **av, char **env)
 		if (all_paths(env, &pipex) == 0)
 			return (ft_clean_all(&pipex), error_mess(), 1);
 		if (!pipex.poss_paths)
-			return (ft_clean_all(&pipex), error_cmd(), 1);
+			return (ft_clean_all(&pipex), error_mess(), 1);
 		if (relative_paths(&pipex) == 0)
 			return (ft_clean_all(&pipex), ft_free_tab(pipex.poss_paths),
-				error_cmd(), 1);
+				error_mess(), 1);
 		ft_free_tab(pipex.poss_paths);
 	}
 	exec_child(&pipex, env);
