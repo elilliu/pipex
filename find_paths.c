@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/16 14:53:08 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/17 16:10:14 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	absolute_paths(t_pipex *pipex)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	while (i < pipex->cmd_nb)
