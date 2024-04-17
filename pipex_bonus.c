@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:04 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/17 16:09:15 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/17 16:20:43 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_pipex	pipex;
 
-	if (ac != 5)
+	if (ac < 5)
 		return (invalid_arguments(), 1);
 	pipex.cmd_nb = ac - 3;
 	verif_files(ac, av, &pipex);
