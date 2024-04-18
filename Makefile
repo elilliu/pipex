@@ -6,31 +6,39 @@
 #    By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 13:00:13 by elilliu           #+#    #+#              #
-#    Updated: 2024/04/17 16:52:48 by elilliu          ###   ########.fr        #
+#    Updated: 2024/04/18 18:18:36 by elilliu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 BONUS_NAME = pipex_bonus
 
-INCLUDE = pipex.h
+INCLUDE = include/pipex.h
+
+SRC_DIR = src
+BONUS_DIR = src_bonus
 
 SRC = main.c utils.c find_paths.c children.c utils2.c
-BONUS = pipex_bonus.c utils.c utils2.c find_paths.c children.c
+BONUS_SRC = pipex_bonus.c utils.c utils2.c find_paths.c children.c
 
 LIBFT_DIR = libft
-LIBFT_PATH = libft/libft.a
+LIBFT_PATH = ${LIBFT_DIR}/libft.a
 
 OBJ_DIR = objects
+OBJ_BONUS_DIR = objects_bonus
 
 OBJ = ${addprefix ${OBJ_DIR}/, ${SRC:.c=.o}}
-OBJ_BONUS = ${addprefix ${OBJ_DIR}/, ${BONUS:.c=.o}}
+OBJ_BONUS = ${addprefix ${OBJ_BONUS_DIR}/, ${BONUS_SRC:.c=.o}}
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-${OBJ_DIR}/%.o: %.c ${INCLUDE}
+${OBJ_DIR}/%.o: ${SRC_DIR}/%.c ${INCLUDE}
 		mkdir -p ${OBJ_DIR}
+		${CC} ${CFLAGS} -c $< -o $@ -g3
+		
+${OBJ_BONUS_DIR}/%.o: ${BONUS_DIR}/%.c ${INCLUDE}
+		mkdir -p ${OBJ_BONUS_DIR}
 		${CC} ${CFLAGS} -c $< -o $@ -g3
 
 ${NAME}: ${OBJ} ${LIBFT_PATH}
@@ -48,7 +56,7 @@ bonus: ${BONUS_NAME}
 
 clean:
 		${MAKE} -C ${LIBFT_DIR} clean
-		rm -rf ${OBJ} ${OBJ_BONUS} ${OBJ_DIR}
+		rm -rf ${OBJ_DIR} ${OBJ_BONUS_DIR}
 
 fclean: clean;
 		${MAKE} -C ${LIBFT_DIR} fclean
