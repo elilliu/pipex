@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:54:54 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/19 15:22:39 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	absolute_paths(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_nb)
 	{
+		if (!pipex->args[i][0])
+			return (0);
 		if (access(pipex->args[i][0], F_OK | X_OK) != 0)
 			return (0);
 		i++;
@@ -51,44 +53,48 @@ int	all_paths(char **env, t_pipex *pipex)
 	return (1);
 }
 
-char	*new_path(t_pipex *pipex, char *str)
+int	new_path(t_pipex *pipex, int i)
 {
 	char	*newstr;
-	int		i;
+	int		j;
 
-	i = 0;
-	while (pipex->poss_paths[i])
+	j = 0;
+	while (pipex->poss_paths[j])
 	{
-		newstr = join(pipex->poss_paths[i], str);
+		newstr = join(pipex->poss_paths[j], pipex->args[i][0]);
 		if (!newstr)
-			return (NULL);
+			return (0);
 		if (access(newstr, F_OK | X_OK) == 0)
-			return (newstr);
+		{
+			free(pipex->args[i][0]);
+			pipex->args[i][0] = ft_strdup(newstr);
+			if (!pipex->args[i][0])
+				return (0);
+			return (free(newstr), 1);
+		}
 		free(newstr);
-		i++;
+		j++;
 	}
-	return (NULL);
+	return (-1);
 }
 
 int	relative_paths(t_pipex *pipex)
 {
-	char	*tmp;
-	int		i;
+	int	i;
+	int	newpath;
 
 	i = 0;
 	while (i < pipex->cmd_nb)
 	{
-		printf("arg: %s\n", pipex->args[i][0]);
 		if (!pipex->args[i][0])
-			return (0);
-		if (access(pipex->args[i][0], F_OK | X_OK) != 0)
+			error_cmd();
+		else if (access(pipex->args[i][0], F_OK | X_OK) != 0)
 		{
-			tmp = new_path(pipex, pipex->args[i][0]);
-			if (!tmp)
+			newpath = new_path(pipex, i);
+			if (newpath == 0)
 				return (0);
-			free(pipex->args[i][0]);
-			pipex->args[i][0] = ft_strdup(tmp);
-			free(tmp);
+			else if (newpath == -1)
+				error_cmd();
 		}
 		i++;
 	}

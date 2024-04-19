@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:24:18 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:54:26 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/19 15:21:25 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	first_child(t_pipex *pipex, char **envp, int i)
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
+	if (access(pipex->args[i][0], F_OK | X_OK) != 0)
+		exit(EXIT_FAILURE);
 	execve(pipex->args[i][0], pipex->args[i], envp);
 }
 
@@ -26,13 +28,18 @@ void	middle_child(t_pipex *pipex, char **envp, int i)
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
+	if (access(pipex->args[i][0], F_OK | X_OK) != 0)
+		exit(EXIT_FAILURE);
 	execve(pipex->args[i][0], pipex->args[i], envp);
 }
 
 void	last_child(t_pipex *pipex, char **envp, int i)
 {
 	dup2(pipex->out_fd, STDOUT_FILENO);
+	close(pipex->out_fd);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
+	if (access(pipex->args[i][0], F_OK | X_OK) != 0)
+		exit(EXIT_FAILURE);
 	execve(pipex->args[i][0], pipex->args[i], envp);
 }

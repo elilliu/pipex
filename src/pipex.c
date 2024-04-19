@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:59:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:54:58 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/19 15:15:58 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	which_child(t_pipex *pipex, char **env, int i)
 		last_child(pipex, env, i);
 	else
 		middle_child(pipex, env, i);
+	dup2(pipex->fd[1], STDOUT_FILENO);
+	close(pipex->fd[0]);
+	close(pipex->fd[1]);
 }
 
 int	exec_child(t_pipex *pipex, char **env)
@@ -98,7 +101,7 @@ int	main(int ac, char **av, char **env)
 			return (ft_clean_all(&pipex), error_cmd(), 1);
 		if (relative_paths(&pipex) == 0)
 			return (ft_clean_all(&pipex), ft_free_tab(pipex.poss_paths),
-				error_cmd(), 1);
+				error_mess(), 1);
 		ft_free_tab(pipex.poss_paths);
 	}
 	exec_child(&pipex, env);

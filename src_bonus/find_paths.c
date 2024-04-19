@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:54:54 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/19 15:38:32 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	relative_paths(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_nb)
 	{
-		printf("arg: %s\n", pipex->args[i][0]);
 		if (!pipex->args[i][0])
 			return (0);
 		if (access(pipex->args[i][0], F_OK | X_OK) != 0)

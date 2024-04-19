@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:21:44 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:55:03 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/19 15:19:38 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,5 @@ void	error_mess(void)
 
 void	error_cmd(void)
 {
-	char	*str;
-
-	str = "Error";
-	perror(str);
-	exit(127);
+	ft_putstr_fd("command not found\n", 2);
 }
