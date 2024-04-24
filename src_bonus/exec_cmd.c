@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:30:53 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/24 18:26:03 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:01:17 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ void	exec_cmd(char *av, char **env)
 	args = ft_split(av, ' ');
 	if (!args)
 		error_cmd();
-	if (!args[0])
-	{
-		ft_free_tab(args);
-		error_cmd();
-	}
 	if (access(args[0], F_OK | X_OK) == 0)
 		path = ft_strdup(args[0]);
 	else
@@ -82,7 +77,7 @@ void	exec_cmd(char *av, char **env)
 	if (!path)
 	{
 		ft_free_tab(args);
-		error_cmd();
+		error_mess();
 	}
 	if (execve(path, args, env) == -1)
 	{

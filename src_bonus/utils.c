@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:18:46 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/18 17:55:00 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/24 17:22:06 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ void	ft_free_tab(char **tab)
 	while (tab[row])
 		free(tab[row++]);
 	free(tab);
-}
-
-void	close_files(t_pipex *pipex)
-{
-	close(pipex->in_fd);
-	close(pipex->out_fd);
 }
 
 char	*join(char *path, char *name)
@@ -46,11 +40,22 @@ char	*join(char *path, char *name)
 	return (str);
 }
 
-void	ft_free_args(t_pipex *pipex)
+void	invalid_arguments(void)
 {
-	int	i;
+	ft_putstr_fd("Invalid number of arguments\n", 2);
+}
 
-	i = 0;
-	while (i < pipex->cmd_nb)
-		ft_free_tab(pipex->args[i++]);
+void	error_mess(void)
+{
+	char	*str;
+
+	str = "Error";
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
+void	error_cmd(void)
+{
+	ft_putstr_fd("command not found\n", 2);
+	exit(EXIT_FAILURE);
 }

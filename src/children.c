@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:55:03 by elilliu           #+#    #+#             */
-/*   Updated: 2024/04/19 18:26:08 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:11:59 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	first_child(t_pipex *pipex, char *infile, char *av, char **env)
 		error_mess();
 	dup2(fd, STDIN_FILENO);
 	dup2(pipex->fd[1], STDOUT_FILENO);
+	close(fd);
 	close(pipex->fd[0]);
 	close(pipex ->fd[1]);
 	exec_cmd(av, env);
