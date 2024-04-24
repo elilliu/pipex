@@ -6,7 +6,7 @@
 #    By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 13:00:13 by elilliu           #+#    #+#              #
-#    Updated: 2024/04/24 18:17:42 by elilliu          ###   ########.fr        #
+#    Updated: 2024/04/24 18:33:02 by elilliu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDE = include/pipex.h
 SRC_DIR = src
 BONUS_DIR = src_bonus
 
-SRC = pipex.c children.c exec_cmd.c utils.c
+SRC = main.c children.c exec_cmd.c utils.c
 BONUS_SRC = pipex_bonus.c children.c exec_cmd.c utils.c
 
 LIBFT_DIR = libft
